@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+*.log
+
+# prodtest artifacts (screenshots, traces, reports)
+.prodtest/
