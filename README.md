@@ -39,6 +39,7 @@ Installs once at user level and stays updatable via `/plugin marketplace update`
 | [`prodcheck`](skills/prodcheck/SKILL.md) | Senior-engineer production readiness review. Verifies every finding against the real code before reporting — security, tenant data isolation, N+1 and DB problems, concurrency, failure modes. Asks before it fixes anything. |
 | [`prodtest`](skills/prodtest/SKILL.md) | Senior-QA pass on a new feature. Unit + functional/integration tests, then Playwright E2E with screenshots saved to a gitignored `.prodtest/` folder. Asks upfront whether to fix bugs or only report them. |
 | [`mergemain`](skills/mergemain/SKILL.md) | Fetches main fresh, merges it into the current branch, and resolves conflicts by reading both sides in full context instead of picking a side. Escalates to you when intent is genuinely ambiguous. |
+| [`shipit`](skills/shipit/SKILL.md) | Clean commits and PRs. Asks up front whether to use AI attribution or keep the commit fully human-authored, matches your repo's existing commit convention, splits logical commits, and writes a PR body with risk and rollback. |
 
 ## Layout
 
