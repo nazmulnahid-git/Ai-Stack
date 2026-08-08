@@ -23,6 +23,15 @@ This drops the skill into your project's `.claude/skills/` (or your agent's
 equivalent). Invoke with `/prodcheck`, `/prodtest`, `/mergemain`, or just
 describe the task and let the agent pick.
 
+### As a Claude Code plugin
+
+Installs once at user level and stays updatable via `/plugin marketplace update`:
+
+```
+/plugin marketplace add nazmulnahid-git/Ai-Stack
+/plugin install ai-stack@ai-stack
+```
+
 ## Skills
 
 | Skill | What it does |
@@ -37,6 +46,9 @@ describe the task and let the agent pick.
 skills/
   <skill-name>/
     SKILL.md        # frontmatter: name + description, then the instructions
+.claude-plugin/
+  plugin.json       # plugin metadata (skills/ is auto-discovered)
+  marketplace.json  # catalog entry, so /plugin install works too
 ```
 
 Anything more than a `SKILL.md` (references, scripts, templates) goes inside

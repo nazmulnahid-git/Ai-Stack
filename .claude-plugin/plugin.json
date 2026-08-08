@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ai-stack",
+  "displayName": "Ai-Stack",
+  "version": "0.1.0",
+  "description": "Useful AI things an engineer uses daily. Ships prodcheck (senior-engineer production review), prodtest (senior-QA test pass with Playwright), and mergemain (context-aware merge of main into the current branch).",
+  "author": {
+    "name": "Nazmul Nahid",
+    "url": "https://github.com/nazmulnahid-git"
+  },
+  "homepage": "https://github.com/nazmulnahid-git/Ai-Stack",
+  "repository": "https://github.com/nazmulnahid-git/Ai-Stack",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "testing",
+    "playwright",
+    "git",
+    "merge-conflicts",
+    "security",
+    "database"
+  ]
+}
