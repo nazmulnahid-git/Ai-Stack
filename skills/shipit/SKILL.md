@@ -59,11 +59,33 @@ whatever the user has configured.
 
 ### Question 2 — How far to go
 
+First find out whether this branch already has a PR, because it changes the
+question:
+
+```
+gh pr view --json number,title,state,isDraft,url 2>/dev/null
+```
+
+**If no PR exists:**
+
 > **1. Commit only** — stage and commit, nothing leaves the machine.
 > **2. Commit and push** — push the branch to the remote.
-> **3. Commit, push, and open a PR** — full ship.
+> **3. Commit, push, and open a draft PR** — full ship.
 
-Default to asking rather than assuming; pushing and opening PRs are visible to
+**If a PR already exists**, say so with its number, title, and draft state, and
+offer:
+
+> This branch already has PR #123 ("Add billing webhooks", draft).
+>
+> **1. Commit only** — nothing leaves the machine.
+> **2. Commit and push** — the existing PR picks up the new commits
+>    automatically. Its description stays as-is.
+> **3. Commit, push, and update the PR** — same, plus I refresh the description
+>    and add a comment summarizing what changed since your last push.
+
+Never open a second PR for a branch that already has one.
+
+Default to asking rather than assuming; pushing and updating PRs are visible to
 other people and hard to take back.
 
 ## Step 2 — Look before you commit
@@ -133,6 +155,28 @@ Only if the user chose option 2 or 3.
 
 Only if the user chose option 3.
 
+### If the branch already has a PR
+
+Do not create anything. The push in Step 4 already added your commits to it.
+
+- Re-read the existing description (`gh pr view --json body`) and update it to
+  cover the new work — **edit it, do not overwrite it**. Someone may have
+  written context by hand, and reviewers may have replied to it.
+- Add a comment summarizing what changed since the last push, so reviewers who
+  already looked do not have to re-read the whole diff:
+
+  ```
+  gh pr comment <number> --body "..."
+  ```
+
+  List the new commits, what they address (review feedback, a bug, scope
+  added), and anything that invalidates an earlier review.
+- If the PR is open (not draft) and the new commits make it incomplete or break
+  tests, offer to move it back to draft with `gh pr ready --undo`.
+- Report the PR URL and its current draft state.
+
+### If there is no PR yet
+
 Base the PR on the repo's default branch and use its template if
 `.github/PULL_REQUEST_TEMPLATE.md` exists — fill it in rather than replacing it
 with your own structure. Otherwise:
@@ -163,7 +207,19 @@ What you ran and what passed. Screenshots for UI changes.
 Then, per Question 1: append the agent footer for option 2, append nothing for
 option 1.
 
-Set the PR to draft if tests are failing or the work is incomplete, and say why.
+**Always create the PR as a draft** — `gh pr create --draft`. The author decides
+when work is ready for other people's time, and a draft costs nothing to
+promote while an accidental review request wastes a colleague's afternoon.
+
+After creating it, report the URL and tell the user how to promote it:
+
+```
+gh pr ready <number>
+```
+
+Mark it ready yourself only if the user explicitly asks. If they do, confirm
+first that tests pass and nothing is left unfinished — say so plainly if not,
+and let them decide.
 
 ## Step 6 — Report
 
