@@ -1,0 +1,22 @@
+{{{
+  exports({ to: app.makePath('app/modules', moduleName, moduleName + '.routes.ts') })
+}}}
+import router from '@adonisjs/core/services/router'
+
+import { middleware } from '#start/kernel'
+
+const {{ controllerName }} = () => import('#modules/{{ moduleName }}/{{ moduleName }}.controller')
+
+/**
+ * Mounted under /api/v1 by start/routes.ts. Routes require authentication;
+ * put public routes in a separate group marked with middleware.public().
+ */
+export default function {{ routesFunctionName }}() {
+  router
+    .group(() => {
+      router.get('/', [{{ controllerName }}, 'index']).as('index')
+    })
+    .prefix('{{ routePrefix }}')
+    .as('{{ moduleName }}')
+    .use(middleware.auth())
+}

@@ -1,0 +1,9 @@
+{{{
+  exports({ to: app.makePath('app/modules', moduleName, moduleName + '.validator.ts') })
+}}}
+import vine from '@vinejs/vine'
+
+export const {{ listValidatorName }} = vine.create({
+  page: vine.number().min(1).optional(),
+  perPage: vine.number().min(1).max(100).optional(),
+})

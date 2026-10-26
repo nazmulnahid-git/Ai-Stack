@@ -1,0 +1,36 @@
+{
+  "name": "__NAME__",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "turbo run //#prettier:write",
+    "format:check": "turbo run //#prettier:check",
+    "codegen": "turbo codegen",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:down": "docker compose down",
+    "prettier:write": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "eslint": "^10.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "turbo": "^2.11.10",
+    "typescript": "~6.0.3"
+  },
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

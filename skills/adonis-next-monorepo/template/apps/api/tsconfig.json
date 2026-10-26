@@ -1,0 +1,7 @@
+{
+  "extends": "@__NAME__/typescript-config/adonis.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./build"
+  }
+}

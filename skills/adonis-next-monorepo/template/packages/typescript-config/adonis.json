@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "AdonisJS",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rewriteRelativeImportExtensions": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "types": ["@types/node"]
+  },
+  "include": ["${configDir}/**/*", "${configDir}/.adonisjs/server/**/*"],
+  "exclude": ["${configDir}/node_modules/**", "${configDir}/build/**"]
+}

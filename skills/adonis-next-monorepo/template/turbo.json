@@ -1,0 +1,47 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "globalPassThroughEnv": [
+    "TZ",
+    "PORT",
+    "HOST",
+    "NODE_ENV",
+    "LOG_LEVEL",
+    "APP_KEY",
+    "APP_URL",
+    "SESSION_DRIVER",
+    "DB_*",
+    "CORS_ORIGIN",
+    "CI"
+  ],
+  "tasks": {
+    "codegen": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["build/**", ".next/**", "!.next/cache/**", "!.next/dev/**"],
+      "env": ["NODE_ENV", "NEXT_PUBLIC_*"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^codegen", "codegen"]
+    },
+    "typecheck": {
+      "dependsOn": ["^codegen", "codegen"]
+    },
+    "//#prettier:write": {
+      "cache": false
+    },
+    "//#prettier:check": {
+      "cache": false
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{{{
+  exports({ to: app.makePath('app/modules', moduleName, moduleName + '.controller.ts') })
+}}}
+import { inject } from '@adonisjs/core'
+import type { HttpContext } from '@adonisjs/core/http'
+
+import {{ serviceName }} from '#modules/{{ moduleName }}/{{ moduleName }}.service'
+import { {{ listValidatorName }} } from '#modules/{{ moduleName }}/{{ moduleName }}.validator'
+
+/**
+ * Thin HTTP layer: validate input, call the service, serialize the result.
+ */
+@inject()
+export default class {{ controllerName }} {
+  constructor(protected {{ serviceVar }}: {{ serviceName }}) {}
+
+  async index({ request, serialize }: HttpContext) {
+    const filters = await request.validateUsing({{ listValidatorName }})
+    return serialize(await this.{{ serviceVar }}.list(filters))
+  }
+}

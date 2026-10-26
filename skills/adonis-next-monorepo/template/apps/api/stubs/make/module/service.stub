@@ -1,0 +1,18 @@
+{{{
+  exports({ to: app.makePath('app/modules', moduleName, moduleName + '.service.ts') })
+}}}
+import type { Infer } from '@vinejs/vine/types'
+
+import type { {{ listValidatorName }} } from '#modules/{{ moduleName }}/{{ moduleName }}.validator'
+
+/**
+ * Business logic of the {{ moduleName }} module. Other modules may import this
+ * file, and only this file.
+ */
+export default class {{ serviceName }} {
+  async list(_filters: Infer<typeof {{ listValidatorName }}>) {
+    // TODO: replace with a Lucid query, e.g. Model.query().paginate(page, perPage)
+    const items: { id: number }[] = []
+    return items
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "@__NAME__/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@__NAME__/ui/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

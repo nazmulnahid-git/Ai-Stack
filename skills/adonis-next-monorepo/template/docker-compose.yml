@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: __NAME_SNAKE__
+      POSTGRES_PASSWORD: __NAME_SNAKE__
+      POSTGRES_DB: __NAME_SNAKE__
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U __NAME_SNAKE__ -d __NAME_SNAKE__']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres:

@@ -1,0 +1,25 @@
+{{{
+  exports({ to: app.makePath('tests/functional', moduleName + '.spec.ts') })
+}}}
+import testUtils from '@adonisjs/core/services/test_utils'
+import { test } from '@japa/runner'
+
+import { UserFactory } from '#database/factories/user_factory'
+
+test.group('{{ moduleTitle }}', (group) => {
+  group.each.setup(() => testUtils.db().withGlobalTransaction())
+
+  test('GET {{ fullPath }} lists {{ moduleName }}', async ({ client }) => {
+    const user = await UserFactory.create()
+    const response = await client.visit('{{ moduleName }}.index').loginAs(user)
+
+    response.assertStatus(200)
+    response.assertBody({ data: [] })
+  })
+
+  test('GET {{ fullPath }} requires authentication', async ({ client }) => {
+    const response = await client.visit('{{ moduleName }}.index')
+
+    response.assertStatus(401)
+  })
+})

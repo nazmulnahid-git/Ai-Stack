@@ -10,8 +10,8 @@
       "name": "ai-stack",
       "source": "./",
       "displayName": "Ai-Stack",
-      "description": "Senior-engineer skills for shipping: prodcheck reviews changes for security, tenant data isolation, N+1 and DB problems before they reach production; prodtest writes unit, integration and Playwright E2E tests for a new feature with screenshots; mergemain merges main into the current branch and resolves conflicts with full context; shipit writes clean commits and PRs, with or without AI attribution.",
-      "version": "0.4.0",
+      "description": "Senior-engineer skills for shipping: prodcheck reviews changes for security, tenant data isolation, N+1 and DB problems before they reach production; prodtest writes unit, integration and Playwright E2E tests for a new feature with screenshots; mergemain merges main into the current branch and resolves conflicts with full context; shipit writes clean commits and PRs, with or without AI attribution; adonis-next-monorepo scaffolds a verified AdonisJS + Next.js monorepo with enforced conventions.",
+      "version": "0.5.0",
       "author": {
         "name": "Nazmul Nahid",
         "url": "https://github.com/nazmulnahid-git"
@@ -27,7 +27,11 @@
         "git",
         "merge-conflicts",
         "security",
-        "database"
+        "database",
+        "monorepo",
+        "adonisjs",
+        "nextjs",
+        "scaffold"
       ]
     }
   ]

@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  conventions:
+    name: Conventions
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Branch name
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: node scripts/check-branch-name.mjs "$BRANCH"
+
+      - name: Commit messages
+        # Dependabot's commit bodies exceed commitlint's line-length rule
+        if: github.actor != 'dependabot[bot]'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: pnpm exec commitlint --from "$BASE" --to "$HEAD" --verbose
+
+      - name: Existing migrations unchanged
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/check-migrations.mjs "$BASE"
+
+  checks:
+    name: Format, lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: __NAME_SNAKE__
+          POSTGRES_PASSWORD: __NAME_SNAKE__
+          POSTGRES_DB: __NAME_SNAKE___test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U __NAME_SNAKE__ -d __NAME_SNAKE___test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # apps/api: validated at startup by start/env.ts (CI-only values, not secrets)
+      TZ: UTC
+      PORT: 3333
+      HOST: localhost
+      LOG_LEVEL: warn
+      APP_KEY: ci-only-app-key-not-a-real-secret
+      APP_URL: http://localhost:3333
+      SESSION_DRIVER: cookie
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_USER: __NAME_SNAKE__
+      DB_PASSWORD: __NAME_SNAKE__
+      DB_DATABASE: __NAME_SNAKE___test
+      # apps/web: validated at startup by lib/env.ts
+      NEXT_PUBLIC_API_URL: http://localhost:3333
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Turborepo cache
+        uses: actions/cache@v6
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: turbo-${{ runner.os }}-
+      - run: pnpm install --frozen-lockfile
+
+      # NODE_ENV is set per step: `next build` breaks with NODE_ENV=development
+      - run: pnpm format:check
+      - run: pnpm lint
+        env:
+          NODE_ENV: development
+      - run: pnpm typecheck
+        env:
+          NODE_ENV: development
+      - run: pnpm test
+        env:
+          NODE_ENV: test
+      - run: pnpm build
+        env:
+          NODE_ENV: production

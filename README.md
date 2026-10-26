@@ -20,7 +20,7 @@ npx skills@latest add nazmulnahid-git/Ai-Stack --skill prodcheck
 ```
 
 This drops the skill into your project's `.claude/skills/` (or your agent's
-equivalent). Invoke with `/prodcheck`, `/prodtest`, `/mergemain`, or just
+equivalent). Invoke with `/prodcheck`, `/prodtest`, `/mergemain`, `/adonis-next-monorepo`, or just
 describe the task and let the agent pick.
 
 ### As a Claude Code plugin
@@ -40,6 +40,7 @@ Installs once at user level and stays updatable via `/plugin marketplace update`
 | [`prodtest`](skills/prodtest/SKILL.md) | Senior-QA pass on a new feature. Unit + functional/integration tests, then Playwright E2E with screenshots saved to a gitignored `.prodtest/` folder. Asks upfront whether to fix bugs or only report them. |
 | [`mergemain`](skills/mergemain/SKILL.md) | Fetches main fresh, merges it into the current branch, and resolves conflicts by reading both sides in full context instead of picking a side. Escalates to you when intent is genuinely ambiguous. |
 | [`shipit`](skills/shipit/SKILL.md) | Clean commits and PRs. Asks up front whether to use AI attribution or keep the commit fully human-authored, matches your repo's existing commit convention, and splits logical commits. Opens PRs as drafts, and updates the existing PR instead of opening a second one. |
+| [`adonis-next-monorepo`](skills/adonis-next-monorepo/SKILL.md) | Scaffolds a full-stack TypeScript monorepo (Turborepo + pnpm, AdonisJS 7 API with a Tuyau typed client, Next.js 16, shadcn on Base UI, Postgres) with the conventions already enforced: feature-module generator, one response shape, auth-by-default routes, strict TS, shared ESLint with structure rules, git hooks, commitlint and CI. Verifies the new project builds and tests green before handing it over. |
 
 ## Layout
 

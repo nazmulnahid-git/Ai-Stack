@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ai-stack",
   "displayName": "Ai-Stack",
-  "version": "0.4.0",
-  "description": "Useful AI things an engineer uses daily. Ships prodcheck (senior-engineer production review), prodtest (senior-QA test pass with Playwright), mergemain (context-aware merge of main into the current branch), and shipit (clean commits and PRs, with or without AI attribution).",
+  "version": "0.5.0",
+  "description": "Useful AI things an engineer uses daily. Ships prodcheck (senior-engineer production review), prodtest (senior-QA test pass with Playwright), mergemain (context-aware merge of main into the current branch), shipit (clean commits and PRs, with or without AI attribution), and adonis-next-monorepo (scaffolds a verified AdonisJS + Next.js monorepo with enforced conventions).",
   "author": {
     "name": "Nazmul Nahid",
     "url": "https://github.com/nazmulnahid-git"
@@ -18,6 +18,10 @@
     "git",
     "merge-conflicts",
     "security",
-    "database"
+    "database",
+    "monorepo",
+    "adonisjs",
+    "nextjs",
+    "scaffold"
   ]
 }
